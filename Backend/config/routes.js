@@ -10,7 +10,7 @@ module.exports = app => {
         .post(admin(app.api.user.save))
         .get(admin(app.api.user.get))
 
-    app.route('user/:id')
+    app.route('/user/:id')
         .all(app.config.passport.authenticate())
         .put(admin(app.api.user.save))
         .get(admin(app.api.user.getById))
@@ -24,13 +24,13 @@ module.exports = app => {
         .all(app.config.passport.authenticate())
         .post(app.api.category.getTree);
 
-    app.route('categories/:id')
+    app.route('/categories/:id')
         .all(app.config.passport.authenticate())
         .get(app.api.category.getById)
         .put(admin(app.api.category.save))
         .delete(admin(app.api.category.remove))
 
-    app.route('categories/:id/article')
+    app.route('/categories/:id/article')
         .all(app.config.passport.authenticate())
         .get(app.api.article.getByCategory)
 
@@ -39,10 +39,14 @@ module.exports = app => {
         .post(admin(app.api.article.save))
         .get(admin(app.api.article.get));
 
-    app.route('article/:id')
+    app.route('/article/:id')
         .all(app.config.passport.authenticate())
         .get(app.api.article.getById)
         .put(admin(app.api.article.save))
         .delete(admin(app.api.article.remove))
+
+    app.route('/stats')
+        .all(app.config.passport.authenticate())
+        .get(app.api.stat.get)
   
 }
