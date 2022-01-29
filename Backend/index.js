@@ -13,5 +13,5 @@ consign()
 
 
 app.listen(3000, () => {
-    console.log('Runing');
+    console.log('Running');
 })
