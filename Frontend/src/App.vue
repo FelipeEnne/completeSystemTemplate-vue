@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<Header />
+		<Header title="Complete System" :hideToggle="false"/>
 		<Menu />
 		<Content />
 		<Footer />
