@@ -2,7 +2,7 @@
 	<div id="app" :class="{'hide-menu':!isMenuVisible}">
 		<Header title="Complete System" 
 		:hideToggle="false"
-		:hideUserDropdown="true"
+		:hideUserDropdown="false"
 		/>
 		<Menu />
 		<Content />
