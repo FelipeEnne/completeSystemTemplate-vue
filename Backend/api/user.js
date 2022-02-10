@@ -21,7 +21,7 @@ module.exports = app => {
             existsOrError(user.email,'The email is missing');
             existsOrError(user.password,'The password is missing');
             existsOrError(user.confirmPassword,'The password confimation is missing');
-            equalOrError(user.password, user.confirmPassword, 'Passwords are different');
+            if(user.password !== user.confirmPassword) throw 'Passwords are different';
             const userFromDB = await app.db('users')
                     .where({email: user.email}).first();
             if(!user.id) {
@@ -33,7 +33,6 @@ module.exports = app => {
 
         user.password = encryptPassword(user.password);
         delete user.confirmPassword;
-
         if(user.id) {
             app.db('users')
                 .update(user)
@@ -43,7 +42,7 @@ module.exports = app => {
                 .catch(err => res.status(500).send(err))
         } else {
             app.db('users')
-                insert(user)
+                .insert(user)
                 .then(_ => res.status(204).send())
                 .catch(err => res.status(500).send(err))
         }

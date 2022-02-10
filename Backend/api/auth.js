@@ -8,9 +8,10 @@ module.exports = app => {
             return res.status(400).send('Inform user and password')
         }
 
-        const user = await app.db('user')
+        const user = await app.db('users')
             .where({ email: req.body.email })
             .first()
+        console.log(user)
 
         if(!user) return res.status(400).send('User not found')
 
