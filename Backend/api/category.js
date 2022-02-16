@@ -2,8 +2,13 @@ module.exports = app => {
     const { existsOrError, notExistsOrError } = app.api.validation;
 
     const save = async (req, res) => {
-        const category = {...req.body};
-        if(req.params.id) category.id = req.params.id;
+        const category = {
+            id: req.body.id,
+            name: req.body.name,
+            parentId: req.body.parentId
+        }
+        
+        if(req.params.id) category.id = req.params.id
 
         try {
             existsOrError(category.name, 'The name is missing');
@@ -14,12 +19,12 @@ module.exports = app => {
         if(category.id) {
             app.db('categories')
                 .update(category)
-                .where({id: category.id})
+                .where({ id: category.id })
                 .then(_ => res.status(204).send())
                 .catch(err => res.status(500).send(err))
         } else {
             app.db('categories')
-                insert(category)
+                .insert(category)
                 .then(_ => res.status(204).send())
                 .catch(err => res.status(500).send(err))
         }
@@ -27,7 +32,7 @@ module.exports = app => {
 
     const remove = async (req, res) => {
         try {
-            existsOrError(req.params.is, "Category code is missing." )
+            existsOrError(req.params.id, "Category code is missing." )
 
             const subcategory = await app.db('categories')
                 .where({ parentId: req.params.id})
@@ -49,12 +54,11 @@ module.exports = app => {
 
     const withPath = categories => {
         const getParent = (categories, parentId) => {
-            const parent = categories.filter(parent => 
-                parent.id === parentId)
+            const parent = categories.filter(parent => parent.id === parentId)
             return parent.length ? parent[0] : null
         }
 
-        const categoriesWithPath = categories.map(category =>{
+        const categoriesWithPath = categories.map(category => {
             let path = category.name
             let parent = getParent(categories, category.parentId)
 
@@ -63,7 +67,7 @@ module.exports = app => {
                 parent = getParent(categories, parent.parentId)
             }
 
-            return { ...categories, path}
+            return { ...category, path }
         })
 
         categoriesWithPath.sort((a, b) => {
@@ -77,7 +81,7 @@ module.exports = app => {
 
     const get = (req, res) => {
         app.db('categories')
-            .then(categories => res.json(WithPath(categories)))
+            .then(categories => res.json(withPath(categories)))
             .catch(err => res.status(500).send(err))
     }
 
