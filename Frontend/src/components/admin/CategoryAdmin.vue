@@ -3,33 +3,23 @@
 
        <b-form>
           <input id="category-id" type="hidden" v-model="category.id" />
-          <b-row>
-             <b-col xs="12">
-                <b-form-group label="Name:" label-form="category-name">
-                  <b-form-input id="category-name" type="text"
-                  v-model="category.name" required
-                  :readonly="mode === 'remove'"
-                  placeholder="Category name"/>
-                </b-form-group>
-             </b-col>
-          </b-row>
 
-           <b-row v-if="mode === 'save'">
-             <b-col xs="12">
-                <b-form-group label="Category:" label-for="category-parentId">
-                  <b-form-select id="category-parentId"
-                     :options="categories" v-model="category.parentId" />
-                </b-form-group>
-             </b-col>
-          </b-row>
-          <b-row v-else>
-             <b-col xs="12">
-                <b-form-group label="Category:" label-for="category-parentId">
-                  <b-form-input id="category-parentId" type=text
-                     readonly v-model="category.path" />
-                  </b-form-group>
-             </b-col>
-          </b-row>
+            <b-form-group label="Name:" label-form="category-name">
+              <b-form-input id="category-name" type="text"
+              v-model="category.name" required
+              :readonly="mode === 'remove'"
+              placeholder="Category name"/>
+            </b-form-group>
+
+            <b-form-group label="Category:" label-for="category-parentId">
+              <b-form-select  v-if="mode === 'save'"
+                 id="category-parentId"
+                 :options="categories" v-model="category.parentId" />
+              <b-form-input v-else
+                 id="category-parentId" type=text
+                 readonly v-model="category.path" />
+            </b-form-group>
+
 
        </b-form>
 
@@ -51,7 +41,7 @@
 
        <hr>
        <b-table hover striped :items="categories" :fields="fields" >
-          <template slot="cell(actions)" slot-scope="data">
+          <template slot="actions" slot-scope="data">
             <b-button variant="warning" @click="loadCategory(data.item)" class="mr-2">
                <i class="fa fa-pencil"></i>
             </b-button>

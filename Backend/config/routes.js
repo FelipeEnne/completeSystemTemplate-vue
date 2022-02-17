@@ -31,16 +31,16 @@ module.exports = app => {
         .put(admin(app.api.category.save))
         .delete(admin(app.api.category.remove))
 
-    app.route('/categories/:id/article')
+    app.route('/categories/:id/articles')
         .all(app.config.passport.authenticate())
         .get(app.api.article.getByCategory)
 
-    app.route('/article')
+    app.route('/articles')
         .all(app.config.passport.authenticate())
         .post(admin(app.api.article.save))
         .get(admin(app.api.article.get));
 
-    app.route('/article/:id')
+    app.route('/articles/:id')
         .all(app.config.passport.authenticate())
         .get(app.api.article.getById)
         .put(admin(app.api.article.save))
