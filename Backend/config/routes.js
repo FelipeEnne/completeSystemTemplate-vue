@@ -23,7 +23,7 @@ module.exports = app => {
 
     app.route('/categories/tree')
         .all(app.config.passport.authenticate())
-        .post(app.api.category.getTree);
+        .get(app.api.category.getTree);
 
     app.route('/categories/:id')
         .all(app.config.passport.authenticate())

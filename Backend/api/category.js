@@ -96,16 +96,16 @@ module.exports = app => {
     const toTree = (categories, tree) => {
         if(!tree) tree = categories.filter(c => !c.parentId)
         tree = tree.map(parentNode => {
-            const isChild = node => node.parentId == parentNode.id;
+            const isChild = node => node.parentId == parentNode.id
             parentNode.children = toTree(categories, categories.filter(isChild))
-            return parentNode;
+            return parentNode
         })
         return tree
     }
 
     const getTree = (req, res) => {
         app.db('categories')
-            .then(categories => res.json(toTree(withPath(categories))))
+            .then(categories => res.json(toTree(categories)))
             .catch(err => res.status(500).send(err))
     }
 

@@ -1,6 +1,6 @@
 <template>
     <header class="header">
-        <a href="" class="toggle" @click="toggleMenu" v-if="!hideToggle">
+        <a id="toggle-category" href="" class="toggle" @click="toggleMenu" v-if="!hideToggle">
             <i class="fa fa-lg" :class="icon"></i>
         </a>
         <h1 class="title">
@@ -77,7 +77,11 @@ export default ({
         align-items: center;
     }
 
-     header.header > a.toggle:hover {
+    header.header > a.toggle:hover {
         background-color: #0000008c;
+    }
+
+    #toggle-category {
+        display: none;
     }
 </style>
