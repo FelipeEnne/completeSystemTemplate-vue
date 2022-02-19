@@ -30,7 +30,7 @@ export default ({
     },
     methods: {
         toggleMenu () {
-            this.$store.commit('toggleMenu')
+            this.$store.commit('toggleMenu', false)
         }
     }
 })
@@ -48,6 +48,7 @@ export default ({
     }
 
     .title {
+        margin-top: 16px;
         font-size: 1.2rem;
         color: #fff;
         font-weight: 100;
@@ -82,6 +83,6 @@ export default ({
     }
 
     #toggle-category {
-        display: none;
+        /* display: none; */
     }
 </style>

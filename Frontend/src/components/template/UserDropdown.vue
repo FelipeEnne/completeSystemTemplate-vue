@@ -8,7 +8,7 @@
             <i class="fa fa-angle-down"></i>
         </div>
         <div class="user-dropdown-content">
-            <router-link to='/admin'>
+            <router-link to='/admin' v-if="user.admin === 'true'">
                 <i class="fa fa-cogs"></i>
                 Admin
             </router-link>
